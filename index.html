@@ -21,6 +21,7 @@
 
         <title>Frontend Mentor | Shortly URL shortening API Challenge</title>
 
+        <script src="script.js" defer></script>
         <script src="https://cdn.tailwindcss.com"></script>
         <script>
             tailwind.config = {
@@ -59,24 +60,51 @@
                             class="pr-8 cursor-pointer"
                         />
                     </li>
-                    <li class="hover:text-veryDarkViolet cursor-pointer pr-5">
+                    <li class="ml-auto block md:hidden">
+                        <button id="openMenu">
+                            <img src="./images/icon-menu.svg" alt="icon menu" />
+                        </button>
+                    </li>
+                    <li
+                        class="hover:text-veryDarkViolet cursor-pointer pr-5 md:inline hidden"
+                    >
                         Features
                     </li>
-                    <li class="hover:text-veryDarkViolet cursor-pointer pr-5">
+                    <li
+                        class="hover:text-veryDarkViolet cursor-pointer pr-5 md:inline hidden"
+                    >
                         Pricing
                     </li>
                     <li
-                        class="hover:text-veryDarkViolet cursor-pointer mr-auto"
+                        class="hover:text-veryDarkViolet cursor-pointer mr-auto md:inline hidden"
                     >
                         Resources
                     </li>
                     <li
-                        class="hover:text-veryDarkViolet cursor-pointer py-1 px-3 mx-1"
+                        class="hover:text-veryDarkViolet cursor-pointer py-1 px-3 mx-1 md:inline hidden"
                     >
                         Login
                     </li>
                     <li
-                        class="text-white bg-cyan cursor-pointer py-1 px-3 mx-1 rounded-full hover:opacity-70"
+                        class="text-white bg-cyan cursor-pointer py-1 px-3 mx-1 rounded-full hover:opacity-70 md:inline hidden"
+                    >
+                        Sign Up
+                    </li>
+                </ul>
+
+                <ul
+                    id="menu"
+                    class="py-6 text-white font-bold text-body bg-darkViolet text-center rounded-xl absolute w-[90%] md:hidden hidden"
+                >
+                    <li class="cursor-pointer pb-8">Features</li>
+                    <li class="cursor-pointer pb-8">Pricing</li>
+                    <li class="cursor-pointer pb-8">Resources</li>
+                    <li>
+                        <div class="h-px w-[90%] bg-gray m-auto mb-8"></div>
+                    </li>
+                    <li class="cursor-pointer pb-5">Login</li>
+                    <li
+                        class="text-white bg-cyan py-2 px-3 rounded-full cursor-pointer mx-10 mb-5"
                     >
                         Sign Up
                     </li>
@@ -109,33 +137,36 @@
                     />
                 </div>
             </div>
-
-            <div
-                class="flex items-center bg-[url('./images/bg-shorten-desktop.svg')] bg-no-repeat bg-cover bg-darkViolet p-10 rounded-lg flex-wrap"
-            >
-                <input
-                    type="text"
-                    placeholder="Shorten a link here..."
-                    class="text-gray px-5 py-3 rounded-lg mr-0 md:mr-5 md:w-3/4 w-full mb-5 md:mb-0"
-                />
-                <!-- <p class="text-red italic mb-0 md:mb-5 mt-2 block md:hidden">
-                    Please add a link
-                </p> -->
-                <button
-                    class="text-white bg-cyan cursor-pointer py-3 px-7 rounded-lg hover:opacity-70 font-bold w-full md:w-auto"
-                >
-                    Shorten It!
-                </button>
-                <!-- <p class="text-red italic mb-0 md:mb-5 mt-2 md:block hidden">
-                    Please add a link
-                </p> -->
-            </div>
         </section>
-
-        <section class="bg-[#f0f1f6] py-40">
+        <section class="bg-[#f0f1f6] pb-40">
             <div class="container m-auto w-[90%] md:w-full">
+                <div
+                    class="flex items-center bg-[url('./images/bg-shorten-desktop.svg')] bg-no-repeat bg-cover bg-darkViolet p-10 rounded-lg flex-wrap"
+                >
+                    <input
+                        id="url"
+                        type="text"
+                        placeholder="Shorten a link here..."
+                        class="text-gray px-5 py-3 rounded-lg mr-0 md:mr-5 md:w-[70%] lg:w-[80%] xl:w-[85%] w-full mb-5 md:mb-0 focus:outline-none"
+                    />
+                    <p id="err1" class="text-red italic mb-5 hidden">
+                        Please add a link
+                    </p>
+                    <button
+                        class="text-white bg-cyan cursor-pointer py-3 px-7 rounded-lg hover:opacity-70 font-bold w-full md:w-auto"
+                        onclick="shortenUrl()"
+                    >
+                        Shorten It!
+                    </button>
+                    <p id="err2" class="text-red italic mt-2 hidden">
+                        Please add a link
+                    </p>
+                </div>
+
+                <div id="links" class="h-[300px] overflow-y-scroll"></div>
+
                 <div class="text-center w-full md:w-1/2 m-auto">
-                    <h1 class="text-3xl font-bold text-darkViolet mb-5">
+                    <h1 class="text-3xl font-bold text-darkViolet mb-5 mt-32">
                         Advanced Statistics
                     </h1>
                     <p class="text-grayViolet px-6 mb-20">
@@ -239,9 +270,7 @@
             <div
                 class="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 w-[90%] lg:w-full m-auto lg:space-y-0 space-y-4"
             >
-                <div
-                    class="col-span-1 lg:col-span-2 m-auto md:m-0 text-center md:text-left"
-                >
+                <div class="col-span-1 lg:col-span-2 m-auto lg:m-0">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="121"
@@ -255,7 +284,7 @@
                     </svg>
                 </div>
                 <div
-                    class="text-grayViolet m-auto md:m-0 text-center md:text-left my-10 md:my-0"
+                    class="text-grayViolet m-auto md:m-0 text-center lg:text-left my-10 md:my-0"
                 >
                     <h4 class="font-bold mb-5 text-white">Features</h4>
                     <p class="hover:text-cyan cursor-pointer">
@@ -266,7 +295,7 @@
                 </div>
 
                 <div
-                    class="text-grayViolet m-auto md:m-0 text-center md:text-left mb-10 lg:mb-0"
+                    class="text-grayViolet m-auto md:m-0 text-center lg:text-left mb-10 lg:mb-0"
                 >
                     <h4 class="font-bold mb-5 text-white">Resources</h4>
                     <p class="hover:text-cyan cursor-pointer">Blog</p>
@@ -275,7 +304,7 @@
                 </div>
 
                 <div
-                    class="text-grayViolet m-auto md:m-0 text-center md:text-left mb-10 md:mb-0"
+                    class="text-grayViolet m-auto md:m-0 text-center lg:text-left mb-10 md:mb-0"
                 >
                     <h4 class="font-bold mb-5 text-white">Company</h4>
                     <p class="hover:text-cyan cursor-pointer">About</p>
